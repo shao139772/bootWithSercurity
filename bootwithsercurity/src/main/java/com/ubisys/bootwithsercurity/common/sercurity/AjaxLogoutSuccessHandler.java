@@ -22,6 +22,10 @@ public class AjaxLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-httpServletResponse.getWriter().print(JSON.toJSON(ResultVO.result(ResultEnum.USER_LOGOUT_SUCCESS,true)));
+//这句话的意思，是让浏览器用utf8来解析返回的数据
+        httpServletResponse.setHeader("Content-type", "text/html;charset=UTF-8");
+        //这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.getWriter().print(JSON.toJSON(ResultVO.result(ResultEnum.USER_LOGOUT_SUCCESS,true)));
     }
 }

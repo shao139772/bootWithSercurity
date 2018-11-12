@@ -36,6 +36,10 @@ spring:
   servlet:
     multipart:
       max-file-size: 1
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
 
 
 
@@ -77,4 +81,8 @@ logging:
   level:
     root: debug
     sun.rmi: warn
+
+
+
+
 

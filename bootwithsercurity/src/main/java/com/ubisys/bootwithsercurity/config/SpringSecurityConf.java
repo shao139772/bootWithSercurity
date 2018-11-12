@@ -60,12 +60,12 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
 
 
                 .anyRequest()//任何请求,登录后可以访问
-               // .access("@rbacauthorityservice.hasPermission(request,authentication)") // RBAC 动态 url 认证
-                .hasAnyRole("ANONYMOUS, USER")
+                .access("@rbacauthorityservice.hasPermission(request,authentication)") // RBAC 动态 url 认证
+                //.hasAnyRole("ANONYMOUS, USER")
                 .and()
                 .formLogin()  //开启登录, 定义当需要用户登录时候，转到的登录页面
-//                .loginPage("/test/login.html")
-//                .loginProcessingUrl("/login")
+                .loginPage("/login")
+               .loginProcessingUrl("/sys/sysUser/login")
                 .successHandler(authenticationSuccessHandler) // 登录成功
                 .failureHandler(authenticationFailureHandler) // 登录失败
                 .permitAll()
@@ -83,6 +83,15 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler); // 无权访问 JSON 格式的数据
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class); // JWT Filter
 
+    }
+
+
+    public static void main(String[] args) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // 加密
+        String encodedPassword = passwordEncoder.encode("123456".trim());
+
+        System.out.println(encodedPassword);
     }
 
 

@@ -43,6 +43,17 @@ public class SysUserController {
     }
 
 
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ResponseBody
+    public List<SysUser> login(){
+        List<SysUser> ll= new ArrayList<SysUser>();
+
+        ll= iSysUserService.selectList(Condition.create().eq("username","admin"));
+        log.info(ll.toString());
+        return ll;
+    }
+
+
 
     @RequestMapping(value = "/test2",method = RequestMethod.POST)
     @ResponseBody

@@ -20,7 +20,10 @@ import java.io.IOException;
 public class AjaxAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
-
+//这句话的意思，是让浏览器用utf8来解析返回的数据
+        httpServletResponse.setHeader("Content-type", "text/html;charset=UTF-8");
+        //这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859
+        httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(JSON.toJSONString(ResultVO.result(ResultEnum.USER_NO_ACCESS,false)));
     }
 }
